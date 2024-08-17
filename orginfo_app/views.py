@@ -54,3 +54,6 @@ def org_info_view(request):
 
     return render(request, 'org_info.html', {'form': form, 'all_orgs': all_orgs})
 
+
+# Kozimjon raxmat kottakon
+
