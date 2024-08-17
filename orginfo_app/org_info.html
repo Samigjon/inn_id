@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Организация по ИНН</title>
+    <script>
+        function validateForm() {
+            var tin = document.forms["tinForm"]["tin"].value;
+            if (tin == "") {
+                alert("Пожалуйста, введите ИНН.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+    <h1>Получить информацию об организации по ИНН</h1>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message|safe }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Получить информацию</button>
+    </form>
+
+    <h2>Все организации в базе данных</h2>
+    <ul>
+    {% for org in all_orgs %}
+        <script>
+            // Очистка поля ввода после отправки формы
+         document.querySelector('[name="tin"]').value = '';
+        </script>
+        <li>
+            <strong>ИНН:</strong> {{ org.tin }}<br>
+            <strong>Название:</strong> {{ org.name }}<br>
+            <strong>Дата регистрации:</strong> {{ org.registration_date }}<br>
+            <strong>Адрес:</strong> {{ org.address }}<br>
+            <br>
+            <hr>
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
